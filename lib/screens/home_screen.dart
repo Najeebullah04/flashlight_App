@@ -9,7 +9,6 @@ const Home({super.key});
   @override
   State<Home> createState() => _HomeState();
 }
-
 class _HomeState extends State<Home> {
   SampleItem? selectedItem;
   @override
@@ -22,19 +21,20 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(width: 55.0,),
                     Expanded(
-                      flex: 12,
+                      flex:2,
                       child:TextButton.icon(
-                onPressed: () {
-                  print('TextButton pressed');
-                },
-                icon: Icon(Icons.battery_1_bar_outlined, color: Colors.amber),
-                label: Text('10%', style: TextStyle(color: Colors.amber)),)
+                        onPressed: () {
+                          print('TextButton pressed');
+                        },
+                        icon: Icon(Icons.battery_1_bar_outlined, color: Colors.amber),
+                          label: Text('10%', style: TextStyle(color: Colors.amber)),)
                     ),
                   Expanded(
-                    flex: 1,
+                    flex: 0,
                     child: PopupMenuButton(
                       onSelected: (SampleItem item){
                         setState(() {
@@ -56,8 +56,7 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                  )
-                  
+                  ) 
               ],
               ), 
               SizedBox(height: 300.0,),
@@ -71,7 +70,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-     
     );
   }
 }
