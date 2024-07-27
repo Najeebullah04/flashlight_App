@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'package:torch_light/torch_light.dart';
 
 enum SampleItem  {item1 , item2 , item3}
 
@@ -11,6 +11,27 @@ const Home({super.key});
 }
 class _HomeState extends State<Home> {
   SampleItem? selectedItem;
+ bool _isOn = false;
+
+  Future<void> _toggleFlashlight() async {
+    setState(() {
+      _isOn = !_isOn;
+    });
+
+    try {
+      if (_isOn) {
+        await TorchLight.enableTorch();
+      } else {
+        await TorchLight.disableTorch();
+      }
+    } catch (e) {
+      setState(() {
+        _isOn = !_isOn; // Revert the state if there's an error
+      });
+      print('Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +84,10 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.power_settings_new , color: Colors.blue, size: 45.0 ),
+                  IconButton(onPressed: _toggleFlashlight, 
+                  icon: Icon(Icons.power_settings_new_rounded))
+                  
+                    
                 ],
               ),              
             ],
