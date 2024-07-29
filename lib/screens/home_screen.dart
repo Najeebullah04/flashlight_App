@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_literals_to_create_immutables
 import 'package:flutter/material.dart';
 import '../widgets/popup_menu.dart';
-import 'package:torch_light/torch_light.dart';
+import '../utils/flashlight_util.dart';
 
 enum SampleItem { item1, item2, item3 }
 
@@ -14,25 +14,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   SampleItem? selectedItem;
   bool _isOn = false;
-  Future<void> _toggleFlashlight() async {
-    setState(() {
-      _isOn = !_isOn;
-    });
-
-    try {
-      if (_isOn) {
-        await TorchLight.enableTorch();
-      } else {
-        await TorchLight.disableTorch();
-      }
-    } catch (e) {
-      setState(() {
-        _isOn = !_isOn; // Revert the state if there's an error
-      });
-      print('Error: $e');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,8 +59,19 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                    onPressed: _toggleFlashlight,
-                    icon: Icon(Icons.power_settings_new_rounded))
+                    onPressed: () async {
+                      setState(() {
+                        _isOn = !_isOn;
+                      });
+                      try {
+                        await FlashlightUtil.flashlightUtilToggle(_isOn);
+                      } catch (e) {
+                        setState(() {
+                          _isOn = !_isOn;
+                        });
+                      }
+                    },
+                    icon: Icon(Icons.power_settings_new))
               ],
             ),
           ],
