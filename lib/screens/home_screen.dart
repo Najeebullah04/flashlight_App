@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import '../widgets/popup_menu.dart';
 import '../utils/flashlight_util.dart';
-import '../utils/batterylevel.dart';
+import 'package:battery_plus/battery_plus.dart';
 
 enum SampleItem { item1, item2, item3 }
 
 class Home extends StatefulWidget {
   const Home({super.key});
+
   @override
   State<Home> createState() => _HomeState();
 }
@@ -15,25 +16,23 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   SampleItem? selectedItem;
   bool _isOn = false;
-  int _batteryLevel = 0;
- 
-  
-   @override
+  var battery = Battery();
+  int percentage = 0;
+
+  @override
   void initState() {
     super.initState();
-    _fetchBatteryLevel;
+    super.initState();
+    getBatteryPerentage();
   }
-  Future<void> _fetchBatteryLevel() async {
-    try {
-     final int batteryLevel = await BatteryUtil.getBatteryLevel();
-      setState(() {
-        _batteryLevel = batteryLevel;
-      });
-    }catch(e){
-      throw Exception('Error fetching Battery Level : $e');
 
-    }
+  void getBatteryPerentage() async {
+    final level = await battery.batteryLevel;
+    percentage = level;
+
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +56,8 @@ class _HomeState extends State<Home> {
                       },
                       icon: Icon(Icons.battery_1_bar_outlined,
                           color: Colors.amber),
-                      label: Text('$_batteryLevel', style: TextStyle(color: Colors.black)),
+                      label: Text('$percentage%',
+                          style: TextStyle(color: Colors.black)),
                     )),
                 Expanded(
                   flex: 0,
