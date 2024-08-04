@@ -5,7 +5,7 @@ import '../utils/flashlight_util.dart';
 import 'package:battery_plus/battery_plus.dart';
 import '../utils/battery_icon.dart';
 
-enum SampleItem { item1, item2, item3 }
+enum SampleItem { removeAds , sendFeedback , followUs , setting }
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                         selectedItem = item;
                       });
                     },
-                    selectedItem: selectedItem ?? SampleItem.item1,
+                    selectedItem: selectedItem ?? SampleItem.removeAds,
                   ),
                 )
               ],
