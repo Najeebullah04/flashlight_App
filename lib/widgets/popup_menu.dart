@@ -12,21 +12,24 @@ class PopUpmenu extends StatelessWidget {
     return PopupMenuButton(
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-        const PopupMenuItem(
+         PopupMenuItem(
           value: SampleItem.removeAds,
-          child: Text('Remove Ads'),
+          child: TextButton(onPressed: (){debugPrint("button is clicked ");}, child: Text('Remove Ads') ),
         ),
-        const PopupMenuItem(
+         PopupMenuItem(
           value: SampleItem.sendFeedback,
-          child: Text('Sendfeedback'),
+          child: TextButton(onPressed: (){ debugPrint("button is clicked ");}, child: Text('Send Feedback') ),
+
         ),
-        const PopupMenuItem(
+         PopupMenuItem(
           value: SampleItem.followUs,
-          child: Text('Follow us'),
+           child: TextButton(onPressed: (){debugPrint("button is clicked ");}, child: Text('Follow Us') ),
+
         ),
-        const PopupMenuItem(
+         PopupMenuItem(
           value: SampleItem.setting,
-          child: Text('Setting'),
+          child: TextButton(onPressed: (){debugPrint("button is clicked ");}, child: Text('Setting') ),
+
         )
       ],
     );
